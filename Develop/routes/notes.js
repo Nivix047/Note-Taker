@@ -1,5 +1,5 @@
-const fb = require("express").Router();
-const { readFromFile, readAndAppend } = require("");
+const notes = require("express").Router();
+const { readFromFile, readAndAppend } = require("../helpers/fsUtils");
 
 // GET Route for retreiving all the notes
 app.get("/api/feedback", (req, res) => {
@@ -36,3 +36,5 @@ app.post("/api/notes", (req, res) => {
     res.json("Error in posting Notes");
   }
 });
+
+module.exports = notes;
