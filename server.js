@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const api = require("./public/assets/js/index");
+const api = require("./routes/index.js");
 
 const PORT = 3001;
 
@@ -19,8 +19,8 @@ app.get("/", (req, res) => {
 });
 
 // GET Route for notes page
-app.get("/feedback", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/pages/notes.html"));
+app.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/pages/notes.html"));
 });
 
 app.listen(PORT, () => {
