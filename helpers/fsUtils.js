@@ -17,8 +17,28 @@ const readAndAppend = (content, file) => {
       const parsedData = JSON.parse(data);
       parsedData.push(content);
       writeToFile(file, parsedData);
+      console.log("----file----");
+      console.log(file);
+      console.log("----content----");
+      console.log(content);
     }
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+const readAndRemove = (id, file) => {
+  fs.readFile(file, "utf-8", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    const parseData = JSON.parse(data);
+    console.log(parseData);
+    for (let i = 0; i < parseData.length; i++) {
+      if (id === parseData[i].id) {
+        parseData.splice(i, 1);
+        writeToFile(file, parseData);
+      }
+    }
+  });
+};
+
+module.exports = { readFromFile, writeToFile, readAndAppend, readAndRemove };

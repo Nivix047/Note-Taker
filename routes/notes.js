@@ -1,6 +1,13 @@
 const { v4: uuidv4 } = require("uuid");
 const notes = require("express").Router();
-const { readFromFile, readAndAppend } = require("../helpers/fsUtils");
+const {
+  readFromFile,
+  readAndAppend,
+  readAndRemove,
+} = require("../helpers/fsUtils");
+
+console.log("----__dirname----");
+console.log(__dirname);
 
 // GET Route for retreiving all the notes
 notes.get("/", (req, res) => {
@@ -19,7 +26,9 @@ notes.post("/", (req, res) => {
       title,
       text,
     };
+    // Used uuid (npm i uuid) to create unique id
     newNotes.id = uuidv4();
+
     readAndAppend(newNotes, "./db/db.json");
 
     const response = {
@@ -27,6 +36,20 @@ notes.post("/", (req, res) => {
       body: newNotes,
     };
 
+    res.json(response);
+  } else {
+    res.json("Error in posting Notes");
+  }
+});
+
+notes.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  if (id) {
+    readAndRemove(id, "./db/db.json");
+    const response = {
+      status: "success",
+      body: id,
+    };
     res.json(response);
   } else {
     res.json("Error in posting Notes");
