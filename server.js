@@ -2,7 +2,8 @@ const express = require("express");
 const path = require("path");
 const api = require("./routes/index.js");
 
-const PORT = 3001;
+// Deployment sites won't host 3001 this allows deployment sites such as Heroku or Glitch host
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
